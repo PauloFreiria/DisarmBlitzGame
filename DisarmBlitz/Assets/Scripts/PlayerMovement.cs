@@ -45,6 +45,10 @@ public class PlayerMovement : MonoBehaviour
     AudioManager audioManager;
     [SerializeField] private GameObject timer;
 
+    [SerializeField] private GameObject endMissionText;
+    [SerializeField] private GameObject missionText;
+
+
 
     void Awake()
     {
@@ -65,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
         audioManager.PlaySFX(audioManager.startGame);
     }
 
+    void Start()
+    {
+        StartCoroutine(MissionText());
+    }
 
     public void HandleInput(InputAction.CallbackContext value)
     {
@@ -129,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         MovePlayer();
+
+        if (isNumberDisarmed && isWordDisarmed)
+        {
+            endMissionText.gameObject.SetActive(true);
+        }
     }
 
     void MovePlayer()
@@ -197,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
             audioManager.StopMusic();
             audioManager.PlaySFX(audioManager.winGame);
             timer.gameObject.SetActive(false);
+            endMissionText.gameObject.SetActive(false);
         }
 
         // Verifique se a velocidade é maior que o limite.
@@ -265,6 +279,14 @@ public class PlayerMovement : MonoBehaviour
             audioManager.PlaySFX(audioManager.dashCollision);
             StartCoroutine(DashStun());
         }
+    }
+
+    IEnumerator MissionText()
+    {
+        yield return new WaitForSeconds(2f);
+        missionText.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        missionText.SetActive(false);
     }
 
     public void SetNumberDisarm(bool isDisarmed)

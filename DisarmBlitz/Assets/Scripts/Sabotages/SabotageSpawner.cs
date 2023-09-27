@@ -8,7 +8,8 @@ public class SabotageSpawner : MonoBehaviour
 {
     public GameObject[] objectPrefabs;
     private Transform playerTransform;
-    public TextMeshProUGUI objectNameText;
+    [SerializeField] TextMeshProUGUI objectNameText;
+    [SerializeField] GameObject backgroundText;
     [SerializeField] Transform spawnBlind;
     [SerializeField] Transform spawn;
 
@@ -23,10 +24,11 @@ public class SabotageSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (objectChosen && Input.anyKeyDown)
+        if (objectChosen && Input.GetKeyDown(KeyCode.E))
         {
             SpawnObject(currentObject);
             objectChosen = false;
+            backgroundText.gameObject.SetActive(false);
         }
     }
 
@@ -37,6 +39,7 @@ public class SabotageSpawner : MonoBehaviour
             int randomIndex = Random.Range(0, objectPrefabs.Length);
             currentObject = objectPrefabs[randomIndex];
             objectNameText.text = currentObject.name;
+            backgroundText.gameObject.SetActive(true);
 
             objectChosen = true;
         }
