@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GameObject endMissionText;
     [SerializeField] private GameObject missionText;
+    [SerializeField] private GameObject buttonsText;
 
 
 
@@ -283,11 +284,22 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator MissionText()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         missionText.SetActive(true);
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         missionText.SetActive(false);
     }
+    
+    IEnumerator ButtonsText()
+    {
+        yield return new WaitForSeconds(5.5f);
+        buttonsText.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        buttonsText.SetActive(false);
+    }
+
+
+
 
     public void SetNumberDisarm(bool isDisarmed)
     {
