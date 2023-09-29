@@ -13844,7 +13844,7 @@ PrefabInstance:
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -88
+      value: -91.7
       objectReference: {fileID: 0}
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578,
         type: 3}
@@ -13854,7 +13854,7 @@ PrefabInstance:
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -89.4
+      value: -93.3
       objectReference: {fileID: 0}
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578,
         type: 3}
@@ -29831,6 +29831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Silo
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b6ecc64a477dc9349884cf0e23de7521,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6ecc64a477dc9349884cf0e23de7521, type: 3}
