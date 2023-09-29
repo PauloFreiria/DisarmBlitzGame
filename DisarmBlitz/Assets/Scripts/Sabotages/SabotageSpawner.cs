@@ -24,7 +24,7 @@ public class SabotageSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (objectChosen && Input.GetKeyDown(KeyCode.E))
+        if (objectChosen && Input.GetKeyDown(KeyCode.Q))
         {
             SpawnObject(currentObject);
             objectChosen = false;

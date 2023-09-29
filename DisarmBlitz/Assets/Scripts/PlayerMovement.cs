@@ -28,8 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject numberDesarm;
     [SerializeField] private GameObject blind;
     [SerializeField] private int QTE;
-    private bool desarmNum;
-    private bool desarmWord;
+
     private bool bearTrap;
 
     private bool escapingBearTrap;
@@ -49,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject missionText;
     [SerializeField] private GameObject buttonsText;
 
+    private Animator animator;
+    private bool isRunning;
 
 
     void Awake()
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerTransform = GetComponent<Transform>();
         rigidBody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         normalSpeed = speed;
 
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -72,7 +74,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        AnimatePlayer();
         StartCoroutine(MissionText());
+        StartCoroutine(ButtonsText());
     }
 
     public void HandleInput(InputAction.CallbackContext value)
@@ -80,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         myInput = value.ReadValue<Vector2>();
     }
 
-    public void Interact(InputAction.CallbackContext value)
+    /*public void Interact(InputAction.CallbackContext value)
     {
         if (value.performed && desarmNum == true && isNumberDisarmed == false)
         {
@@ -103,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             dashButton.gameObject.SetActive(false);
             desarmWord = false;
         }
-    }
+    }*/
 
     public void Use(InputAction.CallbackContext value)
     {
@@ -131,7 +135,6 @@ public class PlayerMovement : MonoBehaviour
         if (canDash == true)
         {
             StartCoroutine(Dash());
-
         }
     }
 
@@ -142,6 +145,11 @@ public class PlayerMovement : MonoBehaviour
         if (isNumberDisarmed && isWordDisarmed)
         {
             endMissionText.gameObject.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            CallDash();
         }
     }
 
@@ -164,24 +172,49 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply the desired velocity to the Rigidbody
         rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
+
+        isRunning = keyboardInput.x != 0;
+        //isRunnning = keyboardInput.y != 0;
+
+        if (isRunning)
+        {
+            print("foi");
+        }
     }
 
-    private void StepSound()
+    private void AnimatePlayer()
     {
-        audioManager.PlaySFX(audioManager.steps);
+        if (isRunning)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else if (!isRunning)
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     //DESARMS
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "NumberDesarm")
+        if (collision.gameObject.tag == "NumberDesarm" && !isNumberDisarmed)
         {
-            desarmNum = true;
+            audioManager.PlaySFX(audioManager.disarmBegin);
+            numberDesarm.gameObject.SetActive(true);
+            joystick.gameObject.SetActive(false);
+            useButton.gameObject.SetActive(false);
+            interactButton.gameObject.SetActive(false);
+            dashButton.gameObject.SetActive(false);
         }
 
-        else if (collision.gameObject.tag == "WordDesarm")
+        else if (collision.gameObject.tag == "WordDesarm" && !isWordDisarmed)
         {
-            desarmWord = true;
+            audioManager.PlaySFX(audioManager.disarmBegin);
+            wordDesarm.gameObject.SetActive(true);
+            joystick.gameObject.SetActive(false);
+            useButton.gameObject.SetActive(false);
+            interactButton.gameObject.SetActive(false);
+            dashButton.gameObject.SetActive(false);
         }
 
         else if (collision.gameObject.tag == "Blind")
@@ -231,12 +264,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "NumberDesarm")
         {
-            desarmNum = false;
+            numberDesarm.gameObject.SetActive(false);
+            joystick.gameObject.SetActive(true);
+            useButton.gameObject.SetActive(true);
+            interactButton.gameObject.SetActive(true);
+            dashButton.gameObject.SetActive(true);
         }
 
         else if (collision.gameObject.tag == "WordDesarm")
         {
-            desarmWord = false;
+            wordDesarm.gameObject.SetActive(false);
+            joystick.gameObject.SetActive(true);
+            useButton.gameObject.SetActive(true);
+            interactButton.gameObject.SetActive(true);
+            dashButton.gameObject.SetActive(true);
         }
 
         if (collision.gameObject.tag == "HoneySlow")
@@ -286,18 +327,17 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         missionText.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         missionText.SetActive(false);
     }
-    
+
     IEnumerator ButtonsText()
     {
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(1f);
         buttonsText.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         buttonsText.SetActive(false);
     }
-
 
 
 
