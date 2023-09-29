@@ -178,8 +178,8 @@ public class PlayerMovement : MonoBehaviour
         // Apply the desired velocity to the Rigidbody
         rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
 
-        isRunning = myInput.x != 0 || myInput.y != 0;
-        RotationHandler(myInput);
+        isRunning = movementInput.x != 0 || movementInput.z != 0;
+        RotationHandler(movementInput);
     }
 
     private void AnimatePlayer()
