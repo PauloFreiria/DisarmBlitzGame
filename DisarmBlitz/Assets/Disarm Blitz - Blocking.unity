@@ -7813,7 +7813,7 @@ MonoBehaviour:
   completeDisarm: {fileID: 8300000, guid: c2308bf84d3ad06418b97e5903e6ca6e, type: 3}
   startGame: {fileID: 8300000, guid: 44986d2e94f4b314aa56b18890ba6852, type: 3}
   steps: {fileID: 8300000, guid: 4d72197f523b48a4299507f810b3fb95, type: 3}
-  slow: {fileID: 8300000, guid: 63e2f4a2d2d3a2c4e971cde7e58f0f6e, type: 3}
+  slow: {fileID: 8300000, guid: bf53787fe20e75249a5eb0748b9aa2b1, type: 3}
   disarmBegin: {fileID: 8300000, guid: 395748d4e2b768b488eb5a3049d686f8, type: 3}
   button: {fileID: 8300000, guid: 33c1049b524110e46b52a9dc703cdef9, type: 3}
 --- !u!1 &837692946
@@ -9337,8 +9337,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.33916554, y: 0.000000016186501, z: -0.000000005835811, w: 0.9407267}
-  m_LocalPosition: {x: 0.55331635, y: 14.897678, z: -40.170002}
+  m_LocalRotation: {x: 0.33916554, y: -0.000000016186501, z: 0.000000005835811, w: 0.9407267}
+  m_LocalPosition: {x: 0.55331653, y: 16.314547, z: -41.879536}
   m_LocalScale: {x: 0.25499997, y: 0.255, z: 0.255}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -18422,8 +18422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1846105806}
   - component: {fileID: 1846105809}
-  - component: {fileID: 1846105808}
-  - component: {fileID: 1846105807}
+  - component: {fileID: 1846105810}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -18446,55 +18445,6 @@ Transform:
   m_Father: {fileID: 1978843579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1846105807
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846105805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 3.05, z: -3.68}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
---- !u!114 &1846105808
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846105805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
-  m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0
-  m_VerticalDamping: 0.5
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_CenterOnActivate: 1
 --- !u!114 &1846105809
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -18507,6 +18457,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1846105810
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846105805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 0
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_TargetMovementOnly: 1
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_CameraDistance: 7
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_DeadZoneDepth: 0
+  m_UnlimitedSoftZone: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+  m_GroupFramingMode: 2
+  m_AdjustmentMode: 0
+  m_GroupFramingSize: 0.8
+  m_MaxDollyIn: 5000
+  m_MaxDollyOut: 5000
+  m_MinimumDistance: 1
+  m_MaximumDistance: 5000
+  m_MinimumFOV: 3
+  m_MaximumFOV: 60
+  m_MinimumOrthoSize: 1
+  m_MaximumOrthoSize: 5000
 --- !u!1 &1856622878
 GameObject:
   m_ObjectHideFlags: 0
@@ -19536,7 +19529,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 2120230987}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 2120230987}
   m_Lens:
     FieldOfView: 70
@@ -19563,8 +19556,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978843577}
-  m_LocalRotation: {x: 0.33916554, y: 0.000000016186501, z: -0.000000005835811, w: 0.9407267}
-  m_LocalPosition: {x: 0.55331635, y: 14.897678, z: -40.170002}
+  m_LocalRotation: {x: 0.33916554, y: -0.000000016186501, z: 0.000000005835811, w: 0.9407267}
+  m_LocalPosition: {x: 0.55331653, y: 16.314547, z: -41.879536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20784,9 +20777,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2120230988}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Input
+        m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20800,7 +20793,7 @@ MonoBehaviour:
     m_ActionName: Player/Movement
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2120230988}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Interact
         m_Mode: 0
@@ -20816,7 +20809,7 @@ MonoBehaviour:
     m_ActionName: Player/Interact
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2120230988}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: CallDash
         m_Mode: 1
@@ -20832,7 +20825,7 @@ MonoBehaviour:
     m_ActionName: Player/Dash
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2120230988}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Use
         m_Mode: 0

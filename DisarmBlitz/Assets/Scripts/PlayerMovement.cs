@@ -51,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private bool isRunning;
 
+    private bool desarmNum;
+    private bool desarmWord;
+
 
     void Awake()
     {
@@ -74,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        AnimatePlayer();
         StartCoroutine(MissionText());
         StartCoroutine(ButtonsText());
     }
@@ -84,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         myInput = value.ReadValue<Vector2>();
     }
 
-    /*public void Interact(InputAction.CallbackContext value)
+    public void Interact(InputAction.CallbackContext value)
     {
         if (value.performed && desarmNum == true && isNumberDisarmed == false)
         {
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             dashButton.gameObject.SetActive(false);
             desarmWord = false;
         }
-    }*/
+    }
 
     public void Use(InputAction.CallbackContext value)
     {
@@ -141,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         MovePlayer();
+        AnimatePlayer();
 
         if (isNumberDisarmed && isWordDisarmed)
         {
@@ -155,31 +158,28 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+        playerTransform.Translate(new Vector3(myInput.x, 0, myInput.y) * speed * Time.deltaTime);
+
         // Get input from the gamepad
-        Vector3 gamepadInput = new Vector3(myInput.x, 0, myInput.y);
+        //Vector3 gamepadInput = new Vector3(myInput.x, 0, myInput.y);
 
         // Get input from the keyboard
-        Vector3 keyboardInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        //Vector3 keyboardInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
         // Combine the inputs to determine the movement direction
-        Vector3 movementInput = gamepadInput + keyboardInput;
+        //Vector3 movementInput = gamepadInput + keyboardInput;
 
         // Normalize the input to ensure consistent speed in all directions
-        movementInput = movementInput.normalized;
+        //movementInput = movementInput.normalized;
 
         // Calculate the desired velocity
-        Vector3 desiredVelocity = movementInput * speed;
+        //Vector3 desiredVelocity = movementInput * speed;
 
         // Apply the desired velocity to the Rigidbody
-        rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
+        //rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
 
-        isRunning = keyboardInput.x != 0;
-        //isRunnning = keyboardInput.y != 0;
-
-        if (isRunning)
-        {
-            print("foi");
-        }
+        isRunning = myInput.x != 0 || myInput.y != 0;
+        RotationHandler(myInput);
     }
 
     private void AnimatePlayer()
@@ -194,27 +194,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void RotationHandler(Vector3 moveDirection)
+    {
+        float rotationFactorPerFrame = 10;
+        Vector3 positionToLookAt;
+        positionToLookAt.x = moveDirection.x;
+        positionToLookAt.y = 0f;
+        positionToLookAt.z = moveDirection.z;
+        Quaternion currentRotation = transform.rotation;
+
+        if (isRunning)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+        }
+    }
+
     //DESARMS
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "NumberDesarm" && !isNumberDisarmed)
         {
-            audioManager.PlaySFX(audioManager.disarmBegin);
-            numberDesarm.gameObject.SetActive(true);
-            joystick.gameObject.SetActive(false);
-            useButton.gameObject.SetActive(false);
-            interactButton.gameObject.SetActive(false);
-            dashButton.gameObject.SetActive(false);
+            desarmNum = true;
         }
 
         else if (collision.gameObject.tag == "WordDesarm" && !isWordDisarmed)
         {
-            audioManager.PlaySFX(audioManager.disarmBegin);
-            wordDesarm.gameObject.SetActive(true);
-            joystick.gameObject.SetActive(false);
-            useButton.gameObject.SetActive(false);
-            interactButton.gameObject.SetActive(false);
-            dashButton.gameObject.SetActive(false);
+            desarmWord = true;
         }
 
         else if (collision.gameObject.tag == "Blind")
