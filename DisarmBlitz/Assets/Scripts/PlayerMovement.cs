@@ -161,22 +161,22 @@ public class PlayerMovement : MonoBehaviour
         playerTransform.Translate(new Vector3(myInput.x, 0, myInput.y) * speed * Time.deltaTime);
 
         // Get input from the gamepad
-        //Vector3 gamepadInput = new Vector3(myInput.x, 0, myInput.y);
+        Vector3 gamepadInput = new Vector3(myInput.x, 0, myInput.y);
 
         // Get input from the keyboard
-        //Vector3 keyboardInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 keyboardInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
         // Combine the inputs to determine the movement direction
-        //Vector3 movementInput = gamepadInput + keyboardInput;
+        Vector3 movementInput = gamepadInput + keyboardInput;
 
         // Normalize the input to ensure consistent speed in all directions
-        //movementInput = movementInput.normalized;
+        movementInput = movementInput.normalized;
 
         // Calculate the desired velocity
-        //Vector3 desiredVelocity = movementInput * speed;
+        Vector3 desiredVelocity = movementInput * speed;
 
         // Apply the desired velocity to the Rigidbody
-        //rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
+        rigidBody.velocity = new Vector3(desiredVelocity.x, rigidBody.velocity.y, desiredVelocity.z);
 
         isRunning = myInput.x != 0 || myInput.y != 0;
         RotationHandler(myInput);
