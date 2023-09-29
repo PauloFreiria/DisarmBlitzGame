@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool desarmNum;
     private bool desarmWord;
+    private bool isDisarmed = false;
+
 
 
     void Awake()
@@ -148,6 +150,10 @@ public class PlayerMovement : MonoBehaviour
         if (isNumberDisarmed && isWordDisarmed)
         {
             endMissionText.gameObject.SetActive(true);
+        }
+        if(isDisarmed)
+        {
+            endMissionText.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -246,11 +252,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (collision.gameObject.CompareTag("FinalDisarm") && isWordDisarmed && isNumberDisarmed)
         {
-            disarmScreen.gameObject.SetActive(true);
-            audioManager.StopMusic();
-            audioManager.PlaySFX(audioManager.winGame);
-            timer.gameObject.SetActive(false);
-            endMissionText.gameObject.SetActive(false);
+            StartCoroutine(FinalDisarm());
         }
 
         // Verifique se a velocidade é maior que o limite.
@@ -304,6 +306,16 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(5f);
         canDash = true;
     }
+
+    IEnumerator FinalDisarm()
+    {
+        disarmScreen.gameObject.SetActive(true);
+        audioManager.PlaySFX(audioManager.winGame);
+        isDisarmed = true;
+        yield return new WaitForSeconds(3f);
+        disarmScreen.gameObject.SetActive(false);
+    }
+
 
     //SABOTAGENS
     IEnumerator DashStun()
